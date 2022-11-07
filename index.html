@@ -10,12 +10,14 @@
 
     <script>
 
-function getPlayerSelection () { //function to filter and validate player input
-    let playerSelectionAnyCase = prompt ("Pick Rock Paper or Scissors") //prompt player to select Rock paper or Scissors
+
+
+function getPlayerChoice () { //function to filter and validate player input
+    let playerSelectionAnyCase = prompt ("Pick Rock Paper or Scissors", ""); //prompt player to select Rock paper or Scissors
     let playerSelection = playerSelectionAnyCase.toLowerCase(); //convert inpunt into lower case
 
     if (!(playerSelection == "rock" ||playerSelection == "paper" ||playerSelection == "scissors" ||playerSelection == 0)) { //check validity of input, allow break from loop if nothing entered
-            getPlayerSelection ();  //loop back to function and ask for new input
+            getPlayerChoice ();  //loop back to function and ask for new input
     }
 
     else if (playerSelection == 0) {
@@ -25,7 +27,7 @@ function getPlayerSelection () { //function to filter and validate player input
     }
 }
 
-let playerChoice = getPlayerSelection ()
+
 
 
 function getComputerChoice () { //function to randomise selection from array
@@ -34,7 +36,7 @@ function getComputerChoice () { //function to randomise selection from array
     return selection [result]
 }
 
-let computerChoice = getComputerChoice ()
+
 
 
 //create function to determine winner
@@ -48,25 +50,33 @@ let computerChoice = getComputerChoice ()
 //if player scissors and computer paper, player wins
 //if player scissors and computer scissors, it's tie
 
-function getPlayerResult (player, computer) {
-    let playerResult = 0
+function playRound (player, computer) {
+
     if (player == computer) {
         alert ("it's a tie!");
-    } else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") && (player == "scissors" || computer == "paper")  ) {
+    } else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper")  ) {
         alert ("You win!!");
-        playerResult += 1;
-        return playerResult;
+        playerScore ();
+
     } else {
         alert ("You lose!!")
     }
 }
 
-let playerResult = getPlayerResult (playerChoice, computerChoice);
-console.log (playerResult)
-        
+
+
 //create function for number of games to be played
-//stop game when number reached
-//report on scores
+
+
+function game () {
+    for (let i=0; i < 5; i++) {
+        playRound (getPlayerChoice (), getComputerChoice())
+    }
+
+}
+
+console.log (game())
+
 
     </script>
     
