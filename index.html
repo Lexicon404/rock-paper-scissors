@@ -11,6 +11,7 @@
     <script>
 
 
+let playerScore = 0
 
 function getPlayerChoice () { //function to filter and validate player input
     let playerSelectionAnyCase = prompt ("Pick Rock Paper or Scissors", ""); //prompt player to select Rock paper or Scissors
@@ -56,7 +57,7 @@ function playRound (player, computer) {
         alert ("it's a tie!");
     } else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper")  ) {
         alert ("You win!!");
-        playerScore ();
+        playerScore++;
 
     } else {
         alert ("You lose!!")
@@ -77,6 +78,7 @@ function game () {
 
 console.log (game())
 
+console.log (playerScore)
 
     </script>
     
