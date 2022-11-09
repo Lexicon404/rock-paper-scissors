@@ -8,28 +8,45 @@
 </head>
 <body>
 
+
+    <div>
+        <p>Welcome Player, first to 5 wins! Pick your poison:</p>
+        <button id="rock"> ROCK </button>
+        <button id="paper"> PAPER </button>
+        <button id="scissors"> SCISSORS </button>
+    </div>
+
+    <p id="result"></p>
+
+    <p id="score"></p>
+
+    <p id="match"></p>
+
     <script>
+var playerScore = 0;
+var computerScore = 0;
 
-
-let playerScore = 0
-
-function getPlayerChoice () { //function to filter and validate player input
-    let playerSelectionAnyCase = prompt ("Pick Rock Paper or Scissors", ""); //prompt player to select Rock paper or Scissors
-    let playerSelection = playerSelectionAnyCase.toLowerCase(); //convert inpunt into lower case
-
-    if (!(playerSelection == "rock" ||playerSelection == "paper" ||playerSelection == "scissors" ||playerSelection == 0)) { //check validity of input, allow break from loop if nothing entered
-            getPlayerChoice ();  //loop back to function and ask for new input
-    }
-
-    else if (playerSelection == 0) {
-        alert ("You have cancelled the game")
-    } else {
-        return playerSelection
+const playRound = (event) => {
+    if (event.target.nodeName === 'BUTTON') {
+        game ((event.target.id), getComputerChoice ());
+        console.log ((event.target.id == "rock"))
+        console.log ((getComputerChoice ()))
     }
 }
+window.addEventListener('click', playRound);
+document.getElementById("score").textContent = `You Score: ${playerScore} Computer Score: ${computerScore}`;
 
-
-
+function gameEnd () {
+    if (playerScore >= 5) {
+        document.getElementById("match").textContent = "Match ENDED! You WON!"
+        playerScore = 0;
+        computerScore =0;
+    } else if (computerScore >= 5) {
+        document.getElementById("match").textContent = "Match ENDED! You LOSE!"
+        playerScore = 0;
+        computerScore =0;
+    }
+}
 
 function getComputerChoice () { //function to randomise selection from array
     const selection = ["rock", "paper", "scissors"]
@@ -37,48 +54,29 @@ function getComputerChoice () { //function to randomise selection from array
     return selection [result]
 }
 
+function game (player, computer) {
+        if (player == computer) {
+            document.getElementById("result").textContent = "It's a tie!!"; 
 
+        } else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper")  ) {
+            document.getElementById("result").textContent = "You win!!";
+            console.log (playerScore)
+            playerScore += 1;
 
-
-//create function to determine winner
-//if player rock and computer rock, it's tie
-//if player rock and computer paper, player lose
-//if player rock and computer scissors, player win
-//if player paper and computer rock, player win
-//if player paper and cmoputer paper, it's tie
-//if player paper and computer scissors, player lose
-//if player scissors and computer rock, player lose
-//if player scissors and computer paper, player wins
-//if player scissors and computer scissors, it's tie
-
-function playRound (player, computer) {
-
-    if (player == computer) {
-        alert ("it's a tie!");
-    } else if ((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper")  ) {
-        alert ("You win!!");
-        playerScore++;
-
-    } else {
-        alert ("You lose!!")
-    }
+        } else {
+            document.getElementById("result").textContent = "You lose!!"; 
+            computerScore += 1;
+        } 
+        document.getElementById("score").textContent = `You Score: ${playerScore} Computer Score: ${computerScore}`;
+        gameEnd ();
 }
 
 
 
-//create function for number of games to be played
 
 
-function game () {
-    for (let i=0; i < 5; i++) {
-        playRound (getPlayerChoice (), getComputerChoice())
-    }
 
-}
 
-console.log (game())
-
-console.log (playerScore)
 
     </script>
     
